@@ -22,7 +22,7 @@ function TeleportZone(props) {
 
 function Floor(props) {
 	return (
-		<mesh visible={false} position={[0, -1.5, 15]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
+		<mesh visible={false} position={[0, -1.5, 20]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
 			<planeBufferGeometry args={[30, 50]} attach="geometry" />
 			<meshStandardMaterial attach="material" color={0x767ee1} />
 		</mesh>
@@ -48,10 +48,10 @@ const Scene = () => {
       </Box>
       </group>
       <Sky/>
-      <mesh position={[0,0,0]} scale={[1,1,1]}>
+      <mesh position={[0,0,5]} scale={[1,1,1]}>
         <primitive object={ roomModel.scene } />
       </mesh>
-      <mesh position={[0,-1.5,30]} scale={[0.05, 0.04, 0.05]} rotation={[0, 190, 0]}>
+      <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[0, 190, 0]}>
         <primitive object={ smallModel.scene } />
       </mesh>
     </>
