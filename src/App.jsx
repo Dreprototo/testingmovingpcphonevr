@@ -3,6 +3,7 @@ import { Suspense, useRef} from 'react'
 import { Loader, Box, Sky } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import roomModelGlb from './assets/room.glb'
+import smallModelGlb from './assets/tiny_room.glb'
 import { FPSControls } from 'react-three-fpscontrols'
 import { XR, Hands, Controllers, VRButton } from '@react-three/xr'
 import VRTeleport from './VRTeleport'
@@ -21,8 +22,8 @@ function TeleportZone(props) {
 
 function Floor(props) {
 	return (
-		<mesh visible={false} position={[0, -1.5, 0]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
-			<planeBufferGeometry args={[30, 25]} attach="geometry" />
+		<mesh visible={false} position={[0, -1.5, 15]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
+			<planeBufferGeometry args={[30, 50]} attach="geometry" />
 			<meshStandardMaterial attach="material" color={0x767ee1} />
 		</mesh>
 	);
@@ -31,6 +32,7 @@ function Floor(props) {
 const Scene = () => {
 
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
+  const smallModel = useLoader(GLTFLoader, smallModelGlb)
 
   const scene = useRef();
   useFrame(() => {
@@ -44,9 +46,14 @@ const Scene = () => {
       <Box>
         <meshLambertMaterial color="red" />
       </Box>
-    </group>
+      </group>
       <Sky/>
-      <primitive object={ roomModel.scene } />
+      <mesh position={[0,0,0]} scale={[1,1,1]}>
+        <primitive object={ roomModel.scene } />
+      </mesh>
+      <mesh position={[0,-1.5,30]} scale={[0.05, 0.04, 0.05]} rotation={[0, 190, 0]}>
+        <primitive object={ smallModel.scene } />
+      </mesh>
     </>
   );
 };

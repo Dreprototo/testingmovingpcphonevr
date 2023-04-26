@@ -71,7 +71,7 @@ export default function VRTeleport(props){
         if(IsHovered){
             player.position.copy(new THREE.Vector3(
                 targetLoc.current.position.x,
-                targetLoc.current.position.y+5,
+                targetLoc.current.position.y+10,
                 targetLoc.current.position.z));
             if(useNormal){
                 player.rotation.copy(targetLoc.current.rotation);
