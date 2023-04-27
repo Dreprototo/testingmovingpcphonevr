@@ -61,7 +61,7 @@ function App() {
   })
 
   const cameraHeight = useControls('CameraHeight', {
-    y: { value: 2.537, min: 0, max: 360, step: 0.5 }
+    y: { value: 2.537, min: 0, max: 100, step: 0.5 }
   })
 
   return (
