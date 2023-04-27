@@ -2,6 +2,8 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Suspense, useRef} from 'react'
 import { Loader, Box, Sky } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useControls } from 'leva'
+import livingRoomModelGlb from './assets/living_room.glb'
 import roomModelGlb from './assets/room.glb'
 import smallModelGlb from './assets/tiny_room.glb'
 import { FPSControls } from 'react-three-fpscontrols'
@@ -31,8 +33,7 @@ function Floor(props) {
 
 const Scene = () => {
 
-  const roomModel = useLoader(GLTFLoader,  roomModelGlb)
-  const smallModel = useLoader(GLTFLoader, smallModelGlb)
+  
 
   const scene = useRef();
   useFrame(() => {
@@ -48,31 +49,61 @@ const Scene = () => {
       </Box>
       </group>
       <Sky/>
-      <mesh position={[0,0,5]} scale={[1,1,1]}>
-        <primitive object={ roomModel.scene } />
-      </mesh>
-      <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[0, 190, 0]}>
-        <primitive object={ smallModel.scene } />
-      </mesh>
+      
     </>
   );
 };
 
 function App() {
 
+  const livingRoomModel = useLoader(GLTFLoader, livingRoomModelGlb)
+  const roomModel = useLoader(GLTFLoader,  roomModelGlb)
+  const smallModel = useLoader(GLTFLoader, smallModelGlb)
+
+  const rotationModelA = useControls('RotationRoomA', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 0, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
+
+  const rotationModelB = useControls('RotationRoomB', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 190, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
+
+  const rotationModelC = useControls('RotationRoomC', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 179, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
+
+  const cameraHeight = useControls('CameraHeight', {
+    y: { value: 2.537, min: 0, max: 360, step: 0.5 }
+  })
+
   return (
     <>
       <VRButton/>
-      <Canvas shadows dpr={[1, 2]}>
+      <Canvas shadows dpr={[1, 2]} >
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
+        <mesh position={[0,0,5]} scale={[1,1,1]} rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}>
+        <primitive object={ roomModel.scene } />
+        </mesh>
+        <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[rotationModelB.x, rotationModelB.y, rotationModelB.z]}>
+          <primitive object={ smallModel.scene } />
+        </mesh>
+        <mesh position={[38,-2.5,25]} scale={[9,10,7]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+          <primitive object={ livingRoomModel.scene } />
+        </mesh>
           <Scene/>
-          <FPSControls
+          <FPSControls 
             camProps={{
               makeDefault: true,
               fov: 80,
-              position: [0, 2.537, 0.7]
+              position: [0, cameraHeight.y, 0.7]
             }}
             orbitProps={{
               target: [0, 2.537, 0]
