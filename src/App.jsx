@@ -24,8 +24,8 @@ function TeleportZone(props) {
 
 function Floor(props) {
 	return (
-		<mesh visible={false} position={[0, -1.5, 20]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
-			<planeBufferGeometry args={[30, 50]} attach="geometry" />
+		<mesh visible={false} position={[0, -1.5, 30]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
+			<planeBufferGeometry args={[50, 75]} attach="geometry" />
 			<meshStandardMaterial attach="material" color={0x767ee1} />
 		</mesh>
 	);
@@ -46,19 +46,13 @@ function App() {
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
   // const smallModel = useLoader(GLTFLoader, smallModelGlb)
 
-  const rotationModelA = useControls('RotationRoomA', {
+  const rotationModelA = useControls('Rotate Living_ room', {
     x: { value: 0, min: 0, max: 360, step: 1 },
     y: { value: 0, min: 0, max: 360, step: 1 },
     z: { value: 0, min: 0, max: 360, step: 1 }
   })
 
-  const rotationModelB = useControls('RotationRoomB', {
-    x: { value: 0, min: 0, max: 360, step: 1 },
-    y: { value: 190, min: 0, max: 360, step: 1 },
-    z: { value: 0, min: 0, max: 360, step: 1 }
-  })
-
-  const rotationModelC = useControls('RotationRoomC', {
+  const rotationModelC = useControls('Rotate Gaming_room', {
     x: { value: 0, min: 0, max: 360, step: 1 },
     y: { value: 0, min: 0, max: 360, step: 1 },
     z: { value: 0, min: 0, max: 360, step: 1 }
@@ -76,7 +70,7 @@ function App() {
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
 
-        <mesh position={[0,0,5]} scale={[1,1,1]} 
+        <mesh position={[-5,0,5]} scale={[1.3,1,1]} 
         rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}
         >
         <primitive object={ roomModel.scene } />
@@ -88,7 +82,7 @@ function App() {
           <primitive object={ smallModel.scene } />
         </mesh> */}
 
-        <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+        <mesh position={[0,-2.5,43]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
           <primitive object={ gamingRoomModel.scene } />
         </mesh>
 
