@@ -46,17 +46,17 @@ function App() {
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
   const smallModel = useLoader(GLTFLoader, smallModelGlb)
 
-  const rotationModelA = useControls('RotationRoomA', {
-    x: { value: 0, min: 0, max: 360, step: 1 },
-    y: { value: 0, min: 0, max: 360, step: 1 },
-    z: { value: 0, min: 0, max: 360, step: 1 }
-  })
+  // const rotationModelA = useControls('RotationRoomA', {
+  //   x: { value: 0, min: 0, max: 360, step: 1 },
+  //   y: { value: 0, min: 0, max: 360, step: 1 },
+  //   z: { value: 0, min: 0, max: 360, step: 1 }
+  // })
 
-  const rotationModelB = useControls('RotationRoomB', {
-    x: { value: 0, min: 0, max: 360, step: 1 },
-    y: { value: 190, min: 0, max: 360, step: 1 },
-    z: { value: 0, min: 0, max: 360, step: 1 }
-  })
+  // const rotationModelB = useControls('RotationRoomB', {
+  //   x: { value: 0, min: 0, max: 360, step: 1 },
+  //   y: { value: 190, min: 0, max: 360, step: 1 },
+  //   z: { value: 0, min: 0, max: 360, step: 1 }
+  // })
 
   // const rotationModelC = useControls('RotationRoomC', {
   //   x: { value: 0, min: 0, max: 360, step: 1 },
@@ -75,15 +75,23 @@ function App() {
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
-        <mesh position={[0,0,5]} scale={[1,1,1]} rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}>
+
+        <mesh position={[0,0,5]} scale={[1,1,1]} 
+        // rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}
+        >
         <primitive object={ roomModel.scene } />
         </mesh>
-        <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[rotationModelB.x, rotationModelB.y, rotationModelB.z]}>
+
+        <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} 
+        rotation={[0, 360, 0]}
+        >
           <primitive object={ smallModel.scene } />
         </mesh>
+
         {/* <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
           <primitive object={ gamingRoomModel.scene } />
         </mesh> */}
+
           <Scene/>
           <FPSControls 
             camProps={{
