@@ -3,9 +3,9 @@ import { Suspense} from 'react'
 import { Loader, Sky } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useControls } from 'leva'
-// import gamingRoomModelGlb from './assets/gaming_room.glb'
+import gamingRoomModelGlb from './assets/gaming_room.glb'
 import roomModelGlb from './assets/room.glb'
-import smallModelGlb from './assets/tiny_room.glb'
+// import smallModelGlb from './assets/tiny_room.glb'
 import { FPSControls } from 'react-three-fpscontrols'
 import { XR, Hands, Controllers, VRButton } from '@react-three/xr'
 import VRTeleport from './VRTeleport'
@@ -42,27 +42,27 @@ const Scene = () => {
 
 function App() {
 
-  // const gamingRoomModel = useLoader(GLTFLoader, gamingRoomModelGlb)
+  const gamingRoomModel = useLoader(GLTFLoader, gamingRoomModelGlb)
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
-  const smallModel = useLoader(GLTFLoader, smallModelGlb)
+  // const smallModel = useLoader(GLTFLoader, smallModelGlb)
 
-  // const rotationModelA = useControls('RotationRoomA', {
-  //   x: { value: 0, min: 0, max: 360, step: 1 },
-  //   y: { value: 0, min: 0, max: 360, step: 1 },
-  //   z: { value: 0, min: 0, max: 360, step: 1 }
-  // })
+  const rotationModelA = useControls('RotationRoomA', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 0, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
 
-  // const rotationModelB = useControls('RotationRoomB', {
-  //   x: { value: 0, min: 0, max: 360, step: 1 },
-  //   y: { value: 190, min: 0, max: 360, step: 1 },
-  //   z: { value: 0, min: 0, max: 360, step: 1 }
-  // })
+  const rotationModelB = useControls('RotationRoomB', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 190, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
 
-  // const rotationModelC = useControls('RotationRoomC', {
-  //   x: { value: 0, min: 0, max: 360, step: 1 },
-  //   y: { value: 0, min: 0, max: 360, step: 1 },
-  //   z: { value: 0, min: 0, max: 360, step: 1 }
-  // })
+  const rotationModelC = useControls('RotationRoomC', {
+    x: { value: 0, min: 0, max: 360, step: 1 },
+    y: { value: 0, min: 0, max: 360, step: 1 },
+    z: { value: 0, min: 0, max: 360, step: 1 }
+  })
 
   const cameraHeight = useControls('CameraHeight', {
     y: { value: 2.537, min: 0, max: 360, step: 0.5 }
@@ -77,20 +77,20 @@ function App() {
         <Suspense fallback={null}>
 
         <mesh position={[0,0,5]} scale={[1,1,1]} 
-        // rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}
+        rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}
         >
         <primitive object={ roomModel.scene } />
         </mesh>
 
-        <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} 
+        {/* <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} 
         rotation={[0, 360, 0]}
         >
           <primitive object={ smallModel.scene } />
-        </mesh>
-
-        {/* <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
-          <primitive object={ gamingRoomModel.scene } />
         </mesh> */}
+
+        <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+          <primitive object={ gamingRoomModel.scene } />
+        </mesh>
 
           <Scene/>
           <FPSControls 
