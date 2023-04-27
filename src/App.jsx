@@ -3,7 +3,7 @@ import { Suspense, useRef} from 'react'
 import { Loader, Box, Sky } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useControls } from 'leva'
-import livingRoomModelGlb from './assets/living_room.glb'
+import gamingRoomModelGlb from './assets/gaming_room.glb'
 import roomModelGlb from './assets/room.glb'
 import smallModelGlb from './assets/tiny_room.glb'
 import { FPSControls } from 'react-three-fpscontrols'
@@ -56,7 +56,7 @@ const Scene = () => {
 
 function App() {
 
-  const livingRoomModel = useLoader(GLTFLoader, livingRoomModelGlb)
+  const gamingRoomModel = useLoader(GLTFLoader, gamingRoomModelGlb)
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
   const smallModel = useLoader(GLTFLoader, smallModelGlb)
 
@@ -74,7 +74,7 @@ function App() {
 
   const rotationModelC = useControls('RotationRoomC', {
     x: { value: 0, min: 0, max: 360, step: 1 },
-    y: { value: 179, min: 0, max: 360, step: 1 },
+    y: { value: 0, min: 0, max: 360, step: 1 },
     z: { value: 0, min: 0, max: 360, step: 1 }
   })
 
@@ -95,8 +95,8 @@ function App() {
         <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[rotationModelB.x, rotationModelB.y, rotationModelB.z]}>
           <primitive object={ smallModel.scene } />
         </mesh>
-        <mesh position={[38,-2.5,25]} scale={[9,10,7]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
-          <primitive object={ livingRoomModel.scene } />
+        <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+          <primitive object={ gamingRoomModel.scene } />
         </mesh>
           <Scene/>
           <FPSControls 
