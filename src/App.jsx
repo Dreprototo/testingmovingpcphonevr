@@ -3,9 +3,11 @@ import { Suspense} from 'react'
 import { Loader, Sky } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useControls } from 'leva'
+
 import gamingRoomModelGlb from './assets/gaming_room.glb'
 import roomModelGlb from './assets/room.glb'
-// import smallModelGlb from './assets/tiny_room.glb'
+import one_pieceGlb from './assets/one_piece.glb'
+
 import { FPSControls } from 'react-three-fpscontrols'
 import { XR, Hands, Controllers, VRButton } from '@react-three/xr'
 import VRTeleport from './VRTeleport'
@@ -44,15 +46,15 @@ function App() {
 
   const gamingRoomModel = useLoader(GLTFLoader, gamingRoomModelGlb)
   const roomModel = useLoader(GLTFLoader,  roomModelGlb)
-  // const smallModel = useLoader(GLTFLoader, smallModelGlb)
+  const one_pieceModel = useLoader(GLTFLoader, one_pieceGlb)
 
-  const rotationModelA = useControls('Rotate Living_ room', {
+  const roomModelRotation = useControls('Rotate Living_ room', {
     x: { value: 0, min: 0, max: 360, step: 1 },
     y: { value: 0, min: 0, max: 360, step: 1 },
     z: { value: 0, min: 0, max: 360, step: 1 }
   })
 
-  const rotationModelC = useControls('Rotate Gaming_room', {
+  const gamingRoomRotation = useControls('Rotate Gaming_room', {
     x: { value: 0, min: 0, max: 360, step: 1 },
     y: { value: 0, min: 0, max: 360, step: 1 },
     z: { value: 0, min: 0, max: 360, step: 1 }
@@ -70,19 +72,18 @@ function App() {
         <pointLight position={[10, 10, 10]} />
         <Suspense fallback={null}>
 
+        <mesh position={[-5,0,-20]} scale={[5,5,5]}>
+          <primitive object={ one_pieceModel.scene } />
+        </mesh>
+
         <mesh position={[-5,0,5]} scale={[1.3,1,1]} 
-        rotation={[rotationModelA.x, rotationModelA.y, rotationModelA.z]}
+        rotation={[roomModelRotation.x, roomModelRotation.y, roomModelRotation.z]}
         >
         <primitive object={ roomModel.scene } />
         </mesh>
 
-        {/* <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} 
-        rotation={[0, 360, 0]}
-        >
-          <primitive object={ smallModel.scene } />
-        </mesh> */}
-
-        <mesh position={[0,-2.5,43]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+        <mesh position={[0,-2.5,43]} scale={[1,1,1]} 
+        rotation={[gamingRoomRotation.x, gamingRoomRotation.y, gamingRoomRotation.z]}>
           <primitive object={ gamingRoomModel.scene } />
         </mesh>
 
@@ -94,7 +95,7 @@ function App() {
               position: [0, cameraHeight.y, 0.7]
             }}
             orbitProps={{
-              target: [0, 2.537, 0]
+              target: [0, cameraHeight.y, 0]
             }}
             enableJoystick
             enableKeyboard
@@ -104,10 +105,10 @@ function App() {
           <VRTeleport useNormal={true} Place={TeleportZone}>
             <TeleportZone position={[0, 10, 0]}/>
             <Floor rotation={[-Math.PI / 2, 0, 0]} />
-            <mesh position={[0, 5, 0]}>
+            {/* <mesh position={[0, 5, 0]}>
             <sphereBufferGeometry args={[2, 32, 16]} attach="geometry" />
             <meshBasicMaterial attach="material" color={0xe395bf} />
-            </mesh>
+            </mesh> */}
           </VRTeleport>
           <Hands/>
           <Controllers/>
