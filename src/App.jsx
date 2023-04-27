@@ -95,9 +95,9 @@ function App() {
         <mesh position={[0,-1.5,35]} scale={[0.05, 0.04, 0.05]} rotation={[rotationModelB.x, rotationModelB.y, rotationModelB.z]}>
           <primitive object={ smallModel.scene } />
         </mesh>
-        <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
+        {/* <mesh position={[40,-2.5,30]} scale={[1,1,1]} rotation={[rotationModelC.x, rotationModelC.y, rotationModelC.z]}>
           <primitive object={ gamingRoomModel.scene } />
-        </mesh>
+        </mesh> */}
           <Scene/>
           <FPSControls 
             camProps={{
