@@ -90,9 +90,9 @@ function App() {
   });
 
   const cameraHeight = useControls('CameraHeight', {
-    x: { value: 0, min: -100, max: 100, step: 0.5 },
+    // x: { value: 0, min: -100, max: 100, step: 0.5 },
     y: { value: 2.537, min: 0, max: 100, step: 0.5 },
-    z: { value: 0, min: -100, max: 100, step: 0.5 }
+    // z: { value: 0, min: -100, max: 100, step: 0.5 }
   })
 
   function gotoAnnotation(idx) {
