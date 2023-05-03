@@ -39,3 +39,28 @@ html, body, #root, canvas {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+#annotationsPanel {
+  position: absolute;
+  z-index: 11;
+  top: 60px;
+  left: 4px;
+  width: auto;
+  height: auto;
+}
+
+#annotationsPanel ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.annotationButton {
+  width: 160px;
+  height: 70px;
+  background-color: rgba(0.25, 0.25, 0.25, 0.5);
+  text-align: left;
+  padding-left: 20px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: monospace;
+}
